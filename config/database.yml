@@ -19,7 +19,8 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: "postgresql://postgres:secrets@localhost"
 
 development:
   <<: *default
@@ -81,5 +82,5 @@ test:
 production:
   <<: *default
   database: forex-api-front_production
-  username: forex-api-front
-  password: <%= ENV['FOREX-API-FRONT_DATABASE_PASSWORD'] %>
+  # username: forex-api-front
+  # password: <%= ENV['FOREX-API-FRONT_DATABASE_PASSWORD'] %>
