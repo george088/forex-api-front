@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_01_104912) do
+ActiveRecord::Schema.define(version: 2019_03_01_134512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "quotes", force: :cascade do |t|
+    t.float "open"
+    t.float "high"
+    t.float "low"
+    t.float "close"
+    t.date "close_time"
+    t.string "ticket"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ticketlists", force: :cascade do |t|
+    t.string "ticket"
+    t.integer "premium"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
