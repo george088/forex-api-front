@@ -11,9 +11,7 @@ class Api::V1::UsersController < ApplicationController
         format.json { render :show, status: :created, location: @user }
       else
         # format.html { render :new }
-        answer = {error: "No such user; check the submitted apikey",
-                  status: 400}
-        format.json { render json: answer, status: :bad_request }
+        format.json { render json: answer('No such user; check the submitted apikey'), status: :bad_request }
       end
     end
   end
@@ -67,5 +65,13 @@ class Api::V1::UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.fetch(:user, {})
+    end
+
+    # answer for json
+    def answer message_str
+     { 
+        error: message_str,
+        status: 400
+      }
     end
 end
