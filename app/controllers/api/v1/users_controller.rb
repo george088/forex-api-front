@@ -1,4 +1,4 @@
-class API::V1::UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # controller for access by api
@@ -6,7 +6,7 @@ class API::V1::UsersController < ApplicationController
   # GET /users/1.json
   def show
     respond_to do |format|
-      if @user.exist?
+      if @user.present?
         # format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -14,7 +14,7 @@ class API::V1::UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
-
+  end
   # POST /users
   # POST /users.json
   def create
