@@ -1,5 +1,6 @@
 class Api::V1::QuotesController < ApplicationController
   before_action :check_apikey
+  before_action :current_user
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
 
   # GET /quotes
@@ -24,7 +25,12 @@ class Api::V1::QuotesController < ApplicationController
       params.fetch(:quote, {})
     end
 
+    # check apikey
     def check_apikey
       render json: { message: 'Check key or create user', status: :unauthorized } if User.find_by(apikey: params[:key]).nil?
+    end
+
+    def current_user
+      @user = User.find_by(apikey: params[:key])
     end
 end
