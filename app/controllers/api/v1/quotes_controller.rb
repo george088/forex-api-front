@@ -23,7 +23,13 @@ class Api::V1::QuotesController < ApplicationController
     render json: { data: Quote.quotes(ticketlist, type, params[:from], params[:to]), status: :ok }
   end
 
+  # api/v1/quotes/tickets_list?key=?
   def tickets_list
+    render json: {tiketlist: Ticketlist.tickets(@user.role), status: :ok}
+  end
+
+  # api/v1/quotes/avalable_dates?key=?&ticket=?
+  def avalable_dates
     render json: {tiketlist: Ticketlist.tickets(@user.role), status: :ok}
   end
 
