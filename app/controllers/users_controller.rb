@@ -5,6 +5,15 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    respond_to do |format|
+      if @@api_current_user.exist?
+        # format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render :show, status: :created, location: @user }
+      else
+        # format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /users/1/edit
@@ -53,8 +62,9 @@ class UsersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    # get user by apikey
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find_by(apikey: params[:key])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
