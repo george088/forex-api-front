@@ -11,9 +11,16 @@ class Api::V1::QuotesController < ApplicationController
 
   # GET /quotes/1
   # GET /quotes/1.json
+  # api/v1/quotes?key=?&ticket=?&type=(OHLC/close)&from=YYYY-mm-dd&to=YYYY-mm-dd
+  # api/v1/quotes?key=?&ticket=?&type=(OHLC/close)&for_date=YYYY-mm-dd
   def show
+    ticketlist = Ticketlist.tickets(@user.role)
+    
+    type = ['close']
+    type = ['open', 'high', 'low', 'close'] if params[:type] == 'OHLC'
+    
     return render json: {message: "You haven't access to #{params[:ticket]}. Only for premium" } if Ticketlist.find_by(ticket: params[:ticket]).premium <= @user.role
-    @quote
+    render json: { data: Quote.quotes(ticketlist, type, params[:from], params[:to]), status: :ok }
   end
 
   def tickets_list
