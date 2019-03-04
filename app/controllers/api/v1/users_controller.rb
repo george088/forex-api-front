@@ -11,7 +11,9 @@ class Api::V1::UsersController < ApplicationController
         format.json { render :show, status: :created, location: @user }
       else
         # format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        answer = {error: "No such user; check the submitted apikey",
+                  status: 400}
+        format.json { render json: answer, status: :bad_request }
       end
     end
   end
