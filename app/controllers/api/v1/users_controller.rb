@@ -66,7 +66,7 @@ class Api::V1::UsersController < ApplicationController
       if User.exists?(email: params[:email])
         'No such user; check the submitted email'
       else
-        "#{User.where(email: params[:email])}"
+        "#{User.find_by(email: params[:email]).get_apikey}"
       end
       # return render json: 'email user not_found', status: :not_found unless 
       # render json: {'apikey' => User.where(email: params[:email]).pluck(:apikey)[0], status: :ok}
