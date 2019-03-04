@@ -13,6 +13,10 @@ class User < ApplicationRecord
     apikey
   end
 
+  def role
+    role
+  end
+
   protected
 
     # Generate a unique API key
