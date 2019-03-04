@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   namespace :api, :defaults => {:format => :json} do
     namespace :v1 do
       resources :users, only: [:show, :create, :update, :destroy]
-      get 'api_key_by_email' => 'users#api_key_by_email' 
+      get 'api_key_by_email' => 'users#api_key_by_email'
+      resource :quotes, only: [:show, :index]
     end
   end
 end
