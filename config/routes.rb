@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api, :defaults => {:format => :json} do
     namespace :v1 do
-      resources :users, only: [:show, :create, :update, :destroy] 
+      resources :users, only: [:show, :create, :update, :destroy]
+      get 'api_key_by_email' => 'users#api_key_by_email' 
     end
   end
 end
