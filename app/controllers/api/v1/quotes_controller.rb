@@ -12,12 +12,18 @@ class Api::V1::QuotesController < ApplicationController
   # GET /quotes/1
   # GET /quotes/1.json
   def show
+    return render json: {message: "You haven't access to #{params[:ticket]}. Only for premium" } if Ticketlist.find_by(ticket: params[:ticket]).premium <= @user.role
+    @quote
+  end
+
+  def tickets_list
+    render json: {tiketlist: Ticketlist.tickets(@user.role), status: :ok}
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quote
-      @quote = Quote.find(params[:id])
+      @quote = Quote.where(params[:ticket])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
