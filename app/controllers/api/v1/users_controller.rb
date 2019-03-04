@@ -51,7 +51,7 @@ class Api::V1::UsersController < ApplicationController
   # get apikey by email
   def api_key_by_email
     respond_to do |format|
-      format.json { render json: answer(get_key_by_email), status: :ok }
+      format.json { render json: get_key_by_email, status: :ok }
     end
   end
 
@@ -64,12 +64,10 @@ class Api::V1::UsersController < ApplicationController
 
     def get_key_by_email
       if User.exists?(email: params[:email])
-        'No such user; check the submitted email'
-      else
         "#{User.find_by(email: params[:email]).get_apikey}"
+      else
+        'No such user; check the submitted email'
       end
-      # return render json: 'email user not_found', status: :not_found unless 
-      # render json: {'apikey' => User.where(email: params[:email]).pluck(:apikey)[0], status: :ok}
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
