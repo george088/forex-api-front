@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:show, :create, :update, :destroy]
       get 'api_key_by_email' => 'users#api_key_by_email'
+      
       resource :quotes, only: [:show, :index]
+      get 'tickets_list'   => 'quotes#tickets_list'
+      get 'avalable_dates' => 'quotes#avalable_dates'
     end
   end
 end
