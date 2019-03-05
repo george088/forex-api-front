@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class IndexTest < ActiveSupport::TestCase
+class IndexControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
