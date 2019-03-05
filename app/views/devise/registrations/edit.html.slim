@@ -10,6 +10,12 @@ h2
     div
       | Currently waiting confirmation for: #{resource.unconfirmed_email}
   .field
+    = f.label :username
+    br/
+    = f.text_field :username
+    div
+      | Currently waiting confirmation for: #{resource.unconfirmed_email}
+  .field
     = f.label :password
     i (leave blank if you don't want to change it)
     br/
