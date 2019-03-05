@@ -1,0 +1,19 @@
+h1 Listing quotes
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @quotes.each do |quote|
+      tr
+        td = link_to 'Show', quote
+        td = link_to 'Edit', edit_quote_path(quote)
+        td = link_to 'Destroy', quote, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Quote', new_quote_path
