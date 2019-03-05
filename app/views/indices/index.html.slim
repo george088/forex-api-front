@@ -1,0 +1,19 @@
+h1 Listing indices
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @indices.each do |index|
+      tr
+        td = link_to 'Show', index
+        td = link_to 'Edit', edit_index_path(index)
+        td = link_to 'Destroy', index, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Index', new_index_path
