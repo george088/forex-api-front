@@ -8,6 +8,48 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    p.notice= notice
-    p.alert= alert
-    = yield
+.col-sm-8.offset-sm-2.text-center
+  nav.navbar.navbar-expand-md.navbar-light.bg-light
+    .navbar-collapse.collapse.col.order-1.order-md-0.dual-collapse2
+      ul.navbar-nav.mr-auto
+        li.nav-item
+          = link_to 'Articles', articles_path, class: :"nav-link"
+        li.nav-item
+          = link_to 'New article', new_article_path, class: :"nav-link"
+        li.nav-item
+          = link_to 'Contacts', new_contacts_path, class: :"nav-link"
+        li.nav-item
+          = link_to 'About', about_path, class: :"nav-link"
+        li.nav-item
+          = link_to 'Terms', terms_path, class: :"nav-link"
+    .mx-auto.order-0
+      a.navbar-brand.mx-auto href="/"  Blog-main
+      button.navbar-toggler data-target=".dual-collapse2" data-toggle="collapse" type="button" 
+        span.navbar-toggler-icon
+    .navbar-collapse.collapse.col.order-3.dual-collapse2
+      ul.navbar-nav.ml-auto
+        - if user_signed_in?
+          li.nav-item
+            = link_to "Signed in as #{current_user.username}", edit_user_registration_path, class: :"nav-link"
+          li.nav-item
+            = link_to 'Sing Out', destroy_user_session_path, method: :delete, class: :"nav-link"
+        - else
+          li.nav-item
+            = link_to 'Sing In', new_user_session_path, class: :"nav-link"
+          li.nav-item
+            = link_to "Sing Up", new_user_registration_path, class: :"nav-link"
+  /! ./navbar
+  - if notice
+    #center.alert.alert-success role="alert" 
+      p.notice= notice
+  - if alert
+    #center.alert.alert-danger role="alert" 
+      p.notice= alert
+  .row
+    .col-xs-3.col-sm-3
+    .col-xs-6.col-sm-6
+      = yield
+    .col-xs-3.col-sm-3
+  /! end div row
+/! ./main container
+

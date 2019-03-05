@@ -1,7 +1,7 @@
 class Api::V1::QuotesController < ApplicationController
   before_action :check_apikey
   before_action :current_user
-  before_action :set_quote, only: [:show, :edit, :update, :destroy]
+  # before_action :set_quote, only: [:show, :edit, :update, :destroy]
 
   # GET /quotes
   # GET /quotes.json
@@ -25,12 +25,12 @@ class Api::V1::QuotesController < ApplicationController
 
   # api/v1/quotes/tickets_list?key=?
   def tickets_list
-    render json: {tiketlist: Ticketlist.tickets(@user.role), status: :ok}
+    render json: {tiketlist: Ticketlist.tickets(@user.type_account), status: :ok}
   end
 
   # api/v1/quotes/avalable_dates?key=?&ticket=?
   def avalable_dates
-    render json: {tiketlist: Ticketlist.tickets(@user.role), status: :ok}
+    render json: {tiketlist: Ticketlist.tickets(@user.type_account), status: :ok}
   end
 
   private
