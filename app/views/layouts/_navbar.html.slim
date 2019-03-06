@@ -1,0 +1,22 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  a.navbar-brand href="/"  Simple api for forex
+  button.navbar-toggler aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarTogglerDemo02" data-toggle="collapse" type="button" 
+    span.navbar-toggler-icon
+  #navbarTogglerDemo02.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto.mt-2.mt-lg-0
+    ul.nav.navbar-nav.navbar-right
+      - if user_signed_in?
+        li.nav-item.dropdown
+          a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
+            | Login in as
+            strong
+              = current_user.username
+          .dropdown-menu.bg-light.col aria-labelledby="navbarDropdown" 
+            = link_to 'Edit profile', edit_user_registration_path, :class => 'dropdown-item', :id => 'edit_profile'
+        li.nav-item
+          = link_to "Logout", destroy_user_session_path, method: :delete, :class => 'nav-link'
+      - else
+        li.nav-item
+          = link_to "Sign up", new_user_registration_path, :class => 'nav-link'
+        li.nav-item
+          = link_to "Login", new_user_session_path, :class => 'nav-link'

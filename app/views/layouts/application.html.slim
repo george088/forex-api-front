@@ -2,12 +2,36 @@ doctype html
 html
   head
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
-    title ForexApiFront
+    title ForexApi
     = csrf_meta_tags
     = csp_meta_tag
+    script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" rel="stylesheet" /
+    script crossorigin="anonymous" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" 
+    script crossorigin="anonymous" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" 
+    link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css" rel="stylesheet" /
+    link href="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.css" rel="stylesheet" type="text/css" /
+    script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js" 
+    script src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.js" type="text/javascript" 
+    script src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.ui.position.min.js" type="text/javascript" 
+    script src="https://swisnl.github.io/jQuery-contextMenu/js/main.js" type="text/javascript" 
+    link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" /
+    script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" 
   body
-    p.notice= notice
-    p.alert= alert
-    = yield
+    .container
+      .row
+        .col
+          = render 'layouts/navbar'
+          = hidden_field(:user, :apikey)
+      .row
+        .col
+          - if notice
+            p.alert.alert-success= notice
+          - if alert
+            p.alert.alert-danger= alert
+      .row
+        .col
+          = yield
+      = console
