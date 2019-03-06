@@ -14,7 +14,7 @@ class Api::V1::QuotesController < ApplicationController
   # api/v1/quotes?key=?&ticket=?&type=(OHLC/close)&from=YYYY-mm-dd&to=YYYY-mm-dd
   # api/v1/quotes?key=?&ticket=?&type=(OHLC/close)&for_date=YYYY-mm-dd
   def show
-    ticketlist = Ticketlist.tickets(@user.role)
+    ticketlist = Ticketlist.tickets(@user.type_role)
     
     type = ['close']
     type = ['open', 'high', 'low', 'close'] if params[:type] == 'OHLC'
@@ -25,12 +25,12 @@ class Api::V1::QuotesController < ApplicationController
 
   # api/v1/quotes/tickets_list?key=?
   def tickets_list
-    render json: {tiketlist: Ticketlist.tickets(@user.role), status: :ok}
+    render json: {tiketlist: Ticketlist.tickets(@user.type_role), status: :ok}
   end
 
   # api/v1/quotes/avalable_dates?key=?&ticket=?
   def avalable_dates
-    render json: {tiketlist: Ticketlist.tickets(@user.role), status: :ok}
+    render json: {tiketlist: Ticketlist.tickets(@user.type_role), status: :ok}
   end
 
   private
