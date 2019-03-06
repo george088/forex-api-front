@@ -89,6 +89,6 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def validate_params
-      param! :email, String, required: true, blank: false, message: "Query not specified"
+      param! :email, String, required: true, blank: false, format: /^.+@[^\.].*\.[a-z]{2,}$/
     end
 end
