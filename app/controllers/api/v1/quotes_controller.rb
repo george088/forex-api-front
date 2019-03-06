@@ -3,6 +3,13 @@ class Api::V1::QuotesController < ApplicationController
   before_action :current_user
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
 
+  before_action :validate_params_show, only: [:show]
+  before_action :validate_params_avalable_dates, only: [:avalable_dates]
+
+  rescue_from RailsParam::Param::InvalidParameterError do |exeption|
+    render json: { error: exeption, status: :unprocessable_entity}
+  end
+
   # GET /quotes
   # GET /quotes.json
   def index
@@ -19,7 +26,7 @@ class Api::V1::QuotesController < ApplicationController
     type = ['close']
     type = ['open', 'high', 'low', 'close'] if params[:type] == 'OHLC'
     
-    return render json: {message: "You haven't access to #{params[:ticket]}. Only for premium" } if Ticketlist.find_by(ticket: params[:ticket]).premium <= @user.role
+    return render json: {message: "You haven't access to #{params[:ticket]}. Only for premium" } if (Ticketlist.find_by(ticket: params[:ticket]).premium != @user.type_role || @user.type_role != 0)
     render json: { data: Quote.quotes(ticketlist, type, params[:from], params[:to]), status: :ok }
   end
 
@@ -51,5 +58,18 @@ class Api::V1::QuotesController < ApplicationController
 
     def current_user
       @user = User.find_by(apikey: params[:key])
+    end
+
+    def validate_params_show
+      # ticket=?&type=(OHLC/close)&from=YYYY-mm-dd&to=YYYY-mm-dd
+      param! :ticket, String, required: true, blank: false
+      param! :type,   String, required: true, blank: false, in: ["OHLC", "close"]
+      param! :from,   Date, required: true, blank: false
+      param! :to,     Date, required: true, blank: false
+    end
+
+    def validate_params_avalable_dates
+      # api/v1/quotes/avalable_dates?key=?&ticket=?
+      param! :ticket, String, required: true, blank: false
     end
 end
