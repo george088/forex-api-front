@@ -13,7 +13,7 @@ class User < ApplicationRecord
     apikey
   end
 
-  def role
+  def type_role
     role
   end
 
