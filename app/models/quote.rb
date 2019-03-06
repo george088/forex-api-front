@@ -3,8 +3,8 @@ class Quote < ApplicationRecord
     Quote.where(ticket: tickets, close_time: from..to).pluck(type)
   end
 
-  def self.avalable_dates ticket
+  def self.avalable_dates tickets
     d = Quote.where(ticket: tickets).pluck(:close_time)
-    [from: d.first, to: d.last]
+    {from: d.first, to: d.last}
   end
 end
