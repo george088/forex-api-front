@@ -30,7 +30,7 @@ class Api::V1::QuotesController < ApplicationController
 
   # api/v1/quotes/avalable_dates?key=?&ticket=?
   def avalable_dates
-    render json: {"avalable_dates_#{params[:ticket]}" => Quote.avalable_dates(params[:ticket]), status: :ok}
+    render json: {tiketlist: Ticketlist.tickets(@user.type_role), status: :ok}
   end
 
   private
