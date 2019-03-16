@@ -1,10 +1,5 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :validate_params, only: [:api_key_by_email]
-
-  rescue_from RailsParam::Param::InvalidParameterError do |exeption|
-    render json: { error: exeption, status: :unprocessable_entity}
-  end
 
   # controller for access by api
   # GET /users/1
@@ -86,9 +81,5 @@ class Api::V1::UsersController < ApplicationController
         error: message_str,
         status: 400
       }
-    end
-
-    def validate_params
-      param! :email, String, required: true, blank: false, message: "Query not specified"
     end
 end
